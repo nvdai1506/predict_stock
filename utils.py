@@ -8,6 +8,7 @@ from sklearn import metrics
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
+from sklearn.svm import SVR
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 import pickle
@@ -71,6 +72,19 @@ def Rf_model(x_train, y_train, x_test, y_test, parameters):
     y_pred=rfc.predict(x_test)
     print("RandomForestClassifier Accuracy:",metrics.accuracy_score(y_test, y_pred))
     return metrics.accuracy_score(y_test, y_pred)
+
+#SVR
+def SVR_model(x_train, y_train, x_test, y_test, parameters):
+    svr=SVR(**parameters)
+    svr.fit(x_train,y_train)
+    y_pred=svr.predict(x_test)
+    print("SVR Accuracy:",metrics.accuracy_score(y_test, y_pred))
+    # print("SVR Accuracy:",svr.score(y_test, y_pred))
+    #get the root mean squared error(RMSE)
+    rmse = np.sqrt(np.mean(y_pred - y_test)**2)
+    print('rmse: ', rmse)
+    return metrics.accuracy_score(y_test, y_pred)
+
 
 # chạy các models được sử dụng với SVC
 def Svc_model(x_train, y_train, x_test, y_test, parameters):
