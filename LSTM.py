@@ -9,9 +9,10 @@ rcParams['figure.figsize']=20,10
 from keras.models import Sequential
 from keras.layers import LSTM,Dropout,Dense
 
-
 from sklearn.preprocessing import MinMaxScaler
 import utils as u
+from config import LSTM_MODEL_OUTPUT
+
 #Read the dataset:
 df = pd.read_csv("NSE-TATA.csv")
 df.head()
@@ -69,7 +70,7 @@ rmse = np.sqrt(np.mean(predictions - y_test)**2)
 print('rmse: ', rmse)
 
 # Save the LSTM model:
-lstm_model.save("LSTM.h5")
+lstm_model.save(LSTM_MODEL_OUTPUT)
 
 #Visualize the predicted stock costs with actual stock costs:
 # train_data=new_dataset[:training_data_len]

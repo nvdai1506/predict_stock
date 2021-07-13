@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 from keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
-
+from config import LSTM_MODEL_OUTPUT
 
 app = dash.Dash()
 server = app.server
@@ -48,7 +48,7 @@ x_train,y_train=np.array(x_train),np.array(y_train)
 
 x_train=np.reshape(x_train,(x_train.shape[0],x_train.shape[1],1))
 
-model=load_model("saved_model.h5")
+model=load_model(LSTM_MODEL_OUTPUT)
 
 inputs=new_data[len(new_data)-len(valid)-60:].values
 inputs=inputs.reshape(-1,1)
