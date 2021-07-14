@@ -96,6 +96,13 @@ app.layout = html.Div([
                 ),
                 html.H2("LSTM Predicted closing price",
                         style={"textAlign": "center"}),
+                dcc.Dropdown(id='dropdown_predicted_type',
+                             options=[{'label': 'XGBoost', 'value': 'XGBoost'},
+                                      {'label': 'RNN', 'value': 'RNN'},
+                                      {'label': 'LSTM', 'value': 'LSTM'}],
+                             value='LSTM',
+                             style={"display": "block", "margin-left": "auto",
+                                    "margin-right": "auto", "width": "60%"}),
                 dcc.Graph(
                     id="Predicted Data",
                     figure={
@@ -147,6 +154,23 @@ app.layout = html.Div([
     ])
 ])
 
+@app.callback(Output("Predicted Data", "figure"), [Input('dropdown_predicted_type', 'value')])
+def update_graph1(selected_dropdown):
+    print(selected_dropdown)
+    return {
+        "data": [
+            go.Scatter(
+                x=valid.index,
+                y=valid["Predictions"],
+                mode='markers'
+            )
+        ],
+        "layout": go.Layout(
+            title='scatter plot',
+            xaxis={'title': 'Date'},
+            yaxis={'title': 'Closing Rate'}
+        )
+    }
 
 @app.callback(Output('highlow', 'figure'),
               [Input('my-dropdown', 'value')])
