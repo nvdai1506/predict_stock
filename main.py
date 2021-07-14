@@ -82,7 +82,7 @@ app.layout = html.Div([
                     figure={
                         "data": [
                             go.Scatter(
-                                x=train.index,
+                                x=valid.index,
                                 y=valid["Close"],
                                 mode='markers'
                             )
