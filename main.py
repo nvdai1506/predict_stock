@@ -9,8 +9,6 @@ from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 from config import LSTM_MODEL_OUTPUT
 
-app = dash.Dash()
-server = app.server
 
 scaler=MinMaxScaler(feature_range=(0,1))
 
@@ -71,87 +69,81 @@ valid['Predictions']=closing_price
 
 df= pd.read_csv("./stock_data.csv")
 
+app = dash.Dash()
+server = app.server
 app.layout = html.Div([
-   
     html.H1("Stock Price Analysis Dashboard", style={"textAlign": "center"}),
-   
     dcc.Tabs(id="tabs", children=[
-       
-        dcc.Tab(label='NSE-TATAGLOBAL Stock Data',children=[
+        dcc.Tab(label='NSE-TATAGLOBAL Stock Data', children=[
             html.Div([
-                html.H2("Actual closing price",style={"textAlign": "center"}),
+                html.H2("Actual closing price", style={"textAlign": "center"}),
                 dcc.Graph(
                     id="Actual Data",
                     figure={
-                        "data":[
+                        "data": [
                             go.Scatter(
                                 x=train.index,
                                 y=valid["Close"],
                                 mode='markers'
                             )
-
                         ],
                         "layout":go.Layout(
                             title='scatter plot',
-                            xaxis={'title':'Date'},
-                            yaxis={'title':'Closing Rate'}
+                            xaxis={'title': 'Date'},
+                            yaxis={'title': 'Closing Rate'}
                         )
                     }
-
                 ),
-                html.H2("LSTM Predicted closing price",style={"textAlign": "center"}),
+                html.H2("LSTM Predicted closing price",
+                        style={"textAlign": "center"}),
                 dcc.Graph(
                     id="Predicted Data",
                     figure={
-                        "data":[
+                        "data": [
                             go.Scatter(
                                 x=valid.index,
                                 y=valid["Predictions"],
                                 mode='markers'
                             )
-
                         ],
                         "layout":go.Layout(
                             title='scatter plot',
-                            xaxis={'title':'Date'},
-                            yaxis={'title':'Closing Rate'}
+                            xaxis={'title': 'Date'},
+                            yaxis={'title': 'Closing Rate'}
                         )
                     }
 
-                )                
-            ])                
-
-
+                )
+            ])
         ]),
         dcc.Tab(label='Facebook Stock Data', children=[
             html.Div([
-                html.H1("Facebook Stocks High vs Lows", 
+                html.H1("Facebook Stocks High vs Lows",
                         style={'textAlign': 'center'}),
-              
+
                 dcc.Dropdown(id='my-dropdown',
                              options=[{'label': 'Tesla', 'value': 'TSLA'},
-                                      {'label': 'Apple','value': 'AAPL'}, 
-                                      {'label': 'Facebook', 'value': 'FB'}, 
-                                      {'label': 'Microsoft','value': 'MSFT'}], 
-                             multi=True,value=['FB'],
-                             style={"display": "block", "margin-left": "auto", 
+                                      {'label': 'Apple', 'value': 'AAPL'},
+                                      {'label': 'Facebook', 'value': 'FB'},
+                                      {'label': 'Microsoft', 'value': 'MSFT'}],
+                             multi=True, value=['FB'],
+                             style={"display": "block", "margin-left": "auto",
                                     "margin-right": "auto", "width": "60%"}),
                 dcc.Graph(id='highlow'),
-                html.H1("Facebook Market Volume", style={'textAlign': 'center'}),
-         
+                html.H1("Facebook Market Volume",
+                        style={'textAlign': 'center'}),
+
                 dcc.Dropdown(id='my-dropdown2',
                              options=[{'label': 'Tesla', 'value': 'TSLA'},
-                                      {'label': 'Apple','value': 'AAPL'}, 
+                                      {'label': 'Apple', 'value': 'AAPL'},
                                       {'label': 'Facebook', 'value': 'FB'},
-                                      {'label': 'Microsoft','value': 'MSFT'}], 
-                             multi=True,value=['FB'],
-                             style={"display": "block", "margin-left": "auto", 
+                                      {'label': 'Microsoft', 'value': 'MSFT'}],
+                             multi=True, value=['FB'],
+                             style={"display": "block", "margin-left": "auto",
                                     "margin-right": "auto", "width": "60%"}),
                 dcc.Graph(id='volume')
             ], className="container"),
         ])
-
-
     ])
 ])
 
