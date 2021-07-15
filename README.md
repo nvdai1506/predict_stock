@@ -20,3 +20,7 @@
 
 - Install library: ...
 - Run LSTM.py to build and train LSTM model
+
+## Ref
+
+- <https://data-flair.training/blogs/stock-price-prediction-machine-learning-project-in-python>
