@@ -49,7 +49,13 @@ class LstmModel(object):
         return self.valid
 
     def getSimpleResult(self):
-        result = []
+        predictions = []
+        close = []
+        indexs = []
         for index in range(0, len(self.valid)):
-            result.append((self.valid.index[index].value / 1000000, self.valid.values[index][0]))
-        return result
+            predictions.append(np.float64(self.valid['Predictions'].values[index].item()))
+            close.append(self.valid['Close'].values[index])
+            indexs.append(self.valid.index[index].value // 1000000)
+        print(type(predictions[0]))
+        print(type(close[0]))
+        return {'Predictions' : predictions, 'Close': close, 'Index': indexs}
