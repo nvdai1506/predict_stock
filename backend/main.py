@@ -4,6 +4,7 @@ import pandas as pd
 import json
 from LSTM import LstmModel
 from RNN import RnnModel
+from SVR import SvrModel
 
 # Setup flask server
 app = Flask(__name__)
@@ -45,7 +46,10 @@ if __name__ == "__main__":
 
     rnn = RnnModel(new_dataset)
     models['RNN'] = rnn
-    
+
     lstm = LstmModel(new_dataset)
     models['LSTM'] = lstm
+
+    svr = SvrModel(new_dataset)
+    models['SVR'] = svr
     app.run(port=5000)
