@@ -16,10 +16,17 @@
 - Lê Trần Lâm An
 - Thái Nhật Minh
 
-## Prepare
+## Running
 
-- Install library: ...
-- Run LSTM.py to build and train LSTM model
+### Prepare
+
+- Install python module: ...
+- Install node module in frontend: cd frontend; npm install
+
+### Start server
+
+- Start backend: python backend/main.py
+- Start frontend: npm start
 
 ## Ref
 
