@@ -12,15 +12,17 @@ from sklearn.svm import SVR
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 import pickle
-import tensorflow as tf
+
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior() 
 
 
-def load_RNN(meta_file,x_test,y_test):
+def load_RNN(meta_file,x_test,y_test):   
     sess = tf.Session()
     new_saver = tf.train.import_meta_graph(meta_file)
     new_saver.restore(sess, tf.train.latest_checkpoint('./'))
     outputs2 = tf.get_collection('outputs')
-    y_pred = sess.run(outputs2[0],feed_dict={X: x_test})
+    y_pred = sess.run(outputs2[0],feed_dict={outputs2[1]: x_test})
     rmse = np.sqrt(np.mean(y_pred - y_test)**2)
     print('rmse: ', rmse)
 
