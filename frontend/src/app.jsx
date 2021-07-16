@@ -96,6 +96,7 @@ class App extends Component {
             <MenuItem value={'XGBoost'}>XGBoost</MenuItem>
             <MenuItem value={'RNN'}>RNN</MenuItem>
             <MenuItem value={'LSTM'}>LSTM</MenuItem>
+            <MenuItem value={'SVR'}>SVR</MenuItem>
           </Select>
           </Grid>
         </Grid>
