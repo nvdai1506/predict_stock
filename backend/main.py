@@ -3,19 +3,21 @@ from flask_cors import CORS
 import pandas as pd
 import json
 from LSTM import LstmModel
+from RNN import RnnModel
+
 # Setup flask server
 app = Flask(__name__)
 CORS(app)
 # Setup url route which will calculate
 # total sum of array.
 
-models = None
+models = {}
 
 @app.route('/model', methods=['GET'])
 def sum_of_array():
     model = request.args.get('model')
-    if model == 'LSTM':
-        result = models.getSimpleResult()
+    if model in models:
+        result = models[model].getSimpleResult()
     else:
         result = "HELELELE"
     # Return data in json format
@@ -40,5 +42,10 @@ if __name__ == "__main__":
     # Normalize the new filtered dataset:
     new_dataset.index = new_dataset.Date
     new_dataset.drop("Date", axis=1, inplace=True)
-    models = LstmModel(new_dataset)
+
+    rnn = RnnModel(new_dataset)
+    models['RNN'] = rnn
+    
+    lstm = LstmModel(new_dataset)
+    models['LSTM'] = lstm
     app.run(port=5000)
