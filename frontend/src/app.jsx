@@ -85,7 +85,7 @@ class App extends Component {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item><h1>Stock Price Analysis Dashboard1 ☘️ MNT</h1></Grid>
+          <Grid item><h1>Stock Price Analysis Dashboard1 ☘️</h1></Grid>
           <Grid item><InputLabel id="select-model">Model</InputLabel>
           <Select
             labelId="select-model"
@@ -97,6 +97,7 @@ class App extends Component {
             <MenuItem value={'RNN'}>RNN</MenuItem>
             <MenuItem value={'LSTM'}>LSTM</MenuItem>
             <MenuItem value={'SVR'}>SVR</MenuItem>
+            <MenuItem value={'Linear'}>Linear</MenuItem>
           </Select>
           </Grid>
         </Grid>

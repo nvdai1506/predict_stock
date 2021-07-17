@@ -5,6 +5,8 @@ import json
 from LSTM import LstmModel
 from RNN import RnnModel
 from SVR import SvrModel
+from XGBoost import XgBoostModel
+from Linear import LinearModel
 
 # Setup flask server
 app = Flask(__name__)
@@ -32,10 +34,12 @@ if __name__ == "__main__":
 
     #Analyze the closing prices from dataframe:+
     df["Date"] = pd.to_datetime(df.Date, format="%Y-%m-%d")
+    xgboost = XgBoostModel(df)
     df.index = df['Date']
 
     #Sort the dataset on date time and # filter “Date” and “Close” columns:
     data = df.sort_index(ascending=True, axis=0)
+
     new_dataset = pd.DataFrame(index=range(0, len(df)), columns=['Date', 'Close'])
     for i in range(0, len(data)):
         new_dataset["Date"][i] = data['Date'][i]
@@ -52,4 +56,9 @@ if __name__ == "__main__":
 
     svr = SvrModel(new_dataset)
     models['SVR'] = svr
+
+    models['XGBoost'] = xgboost
+
+    linear = LinearModel(new_dataset)
+    models['Linear'] = linear
     app.run(port=5000)
