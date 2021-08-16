@@ -20,13 +20,25 @@
 
 ### Prepare
 
-- Install python module: ...
-- Install node module in frontend: cd frontend; npm install
+- Install python module:
+    ```
+    pip install flask flask-cors pandas keras tensorflow sklearn xgboost
+    ```
+- Install node module in frontend:
+    ```
+    cd frontend; npm install
+    ```
 
 ### Start server
 
-- Start backend: python backend/main.py
-- Start frontend: npm start
+- Start backend:
+    ```
+    python backend/main.py
+    ```
+- Start frontend:
+    ```
+    npm start
+    ```
 
 ## Ref
 
