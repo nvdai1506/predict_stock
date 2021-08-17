@@ -26,7 +26,8 @@
     ```
 - Install node module in frontend:
     ```
-    cd frontend; npm install
+    cd frontend
+    npm install
     ```
 
 ### Start server
