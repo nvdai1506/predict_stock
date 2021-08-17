@@ -19,9 +19,11 @@ class LinearModel(object):
         self.close = dataset['Close'].values[num_test:]
         
         price_of_change = y_pred2[n_period_before:]
+        poc = []
         for i in range(0, len(price_of_change)):
-            price_of_change[i] = (price_of_change[i]-y_pred2[i])/y_pred2[i]
-        self.poc = price_of_change
+            value = (price_of_change[i]-y_pred2[i])/y_pred2[i]
+            poc.append(np.float64(value.item()))
+        self.poc = poc
 
         print("Linear init success")
 

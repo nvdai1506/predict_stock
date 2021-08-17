@@ -7,6 +7,7 @@ import utils
 
 CSV = "NSE-TATA.csv"
 MODEL = "LSTM.h5"
+n_period_before = 10
 class LstmModel(object):
     def __init__(self, dataset):
         super().__init__()
@@ -28,6 +29,14 @@ class LstmModel(object):
         self.indexs = dataset.index[num_test:]
         self.predictions = closing_price
         self.close = dataset['Close'].values[num_test:]
+        
+        price_of_change = closing_price[n_period_before:]
+        poc = []
+        for i in range(0, len(price_of_change)):
+            value = (price_of_change[i]-closing_price[i])/closing_price[i]
+            poc.append(np.float64(value.item()))
+        self.poc = poc
+
         print("LSTM init success")
     def getResult(self):
         return self.valid
@@ -40,6 +49,4 @@ class LstmModel(object):
             predictions.append(np.float64(self.predictions[index].item()))
             close.append(self.close[index])
             indexs.append(self.indexs[index].value // 1000000)
-        print(type(predictions[0]))
-        print(type(close[0]))
-        return {'Predictions' : predictions, 'Close': close, 'Index': indexs}
+        return {'Predictions' : predictions, 'Close': close, 'Index': indexs, 'poc': self.poc, 'IndexPoC': indexs[n_period_before:]}

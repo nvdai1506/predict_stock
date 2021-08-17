@@ -7,7 +7,7 @@ n_windows = 10
 n_input = 1
 n_output = 1
 size_train = 1001
-
+n_period_before = 10
 class RnnModel(object):
     def __init__(self, dataset):
         super().__init__()
@@ -23,6 +23,14 @@ class RnnModel(object):
         self.indexs = dataset.index[size_train:]
         self.predictions = y_pred
         self.close = dataset['Close'].values[size_train:]
+        
+        price_of_change = y_pred[n_period_before:]
+        poc = []
+        for i in range(0, len(price_of_change)):
+            value = (price_of_change[i]-y_pred[i])/y_pred[i]
+            poc.append(np.float64(value.item()))
+        self.poc = poc
+
         print("RNN init success")
 
     def create_batches(self, train, test, windows, input, output):
@@ -47,6 +55,4 @@ class RnnModel(object):
             predictions.append(np.float64(self.predictions[index].item()))
             close.append(self.close[index])
             indexs.append(self.indexs[index].value // 1000000)
-        print(type(predictions[0]))
-        print(type(close[0]))
-        return {'Predictions' : predictions, 'Close': close, 'Index': indexs}
+        return {'Predictions' : predictions, 'Close': close, 'Index': indexs, 'poc': self.poc, 'IndexPoC': indexs[n_period_before:]}
