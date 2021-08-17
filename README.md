@@ -44,3 +44,4 @@
 ## Ref
 
 - <https://data-flair.training/blogs/stock-price-prediction-machine-learning-project-in-python>
+- <https://radiant-brushlands-42789.herokuapp.com/towardsdatascience.com/stock-predictions-with-state-of-the-art-transformer-and-time-embeddings-3a4485237de6?fbclid=IwAR10TqnPAfNUbOW_vQuhQ5_4O-Wre9LBc4YtHi8eu7R9a2-X9SjuS9-QO-A>
